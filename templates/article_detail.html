@@ -16,8 +16,8 @@
 {% for review in review_list %}
 <p><b>{{ review.user }}: {{ review.rating }}.0</b></p>
 <p>{{ review.comment }}</p>
-<hr>
 {% endfor %}
+<hr>
 
 <h4>Add a Review</h4>
 {% get_review_form for article as form %}
