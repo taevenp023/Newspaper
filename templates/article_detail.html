@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% load reviews %}
+{% load rating_tags %}
+{% render_rating_import %}
 
 {% block content %}
 <div class="article-entry">
@@ -9,28 +10,12 @@
     <p>{{ object.body }}</p>
 </div>
 
-<h4>Reviews</h4>
-{% render_rating for article %}
-<hr>
-{% get_review_list for article as review_list %}
-{% for review in review_list %}
-<p><b>{{ review.user }}: {{ review.rating }}.0</b></p>
-<p>{{ review.comment }}</p>
-{% endfor %}
-<hr>
 
-<h4>Add a Review</h4>
-{% get_review_form for article as form %}
-<table>
-    <form action="{% review_form_target %}" method="post" is_public="True">{% csrf_token %}
-        {{ form|crispy }}
-        <tr>
-            <td colspan="2">
-                <input type="submit" name="submit" value="Post">
-            </td>
-        </tr>
-    </form>
-</table>
+<h4>Review This Article!</h4>
+{% render_rating request obj=article settings_slug='default-config' %}
+{% render_rating_info request=request obj=article settings_slug='default-config' %}
+
+{% render_rating_script %}
 
 <hr>
 <h4>Comments</h4>

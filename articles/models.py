@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
+from django.contrib.contenttypes.fields import GenericRelation
+from rating.models import Rating
 
 
 class Article(models.Model):
@@ -11,6 +13,7 @@ class Article(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+    ratings = GenericRelation(Rating)
 
     def __str__(self):
         return self.title
